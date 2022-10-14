@@ -11,19 +11,27 @@ const { NotImplementedError } = require('../extensions/index.js');
  * getSeason(new Date(2020, 02, 31)) => 'spring'
  * 
  */
+
+ class InvaliDate extends Error {
+  constructor(message) {
+      super(message);
+      this.name = 'InvalidDate'
+  }
+};
+
 function getSeason(date) {
   if (!date){
     return 'Unable to determine the time of year!'
   } 
 
   if (!(date instanceof Date)){
-    throw new NotImplementedError('Invalid date!');
+    throw new InvaliDate('Invalid date!');
   }
 
   try {
     date.getTime()
   } catch (error) {
-    throw new NotImplementedError('Invalid date!');
+    throw new InvaliDate('Invalid date!');
   }
 
   let month = date.getMonth()
